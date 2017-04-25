@@ -8,6 +8,7 @@ class Jugador
     TableroJugador propio;
     TableroJugador enemigo;
     int barcos_restantes;
+    int contadorBarcos;
     Barco *piezas;
 
     public:
@@ -15,12 +16,15 @@ class Jugador
     Jugador() 
     {
         barcos_restantes = 5;
+        contadorBarcos=0;
         piezas = new Barco[5];
     }
     Jugador(int barcos_restantes)
     {
         this->barcos_restantes=barcos_restantes;
         piezas = new Barco[barcos_restantes];
+        contadorBarcos=0;
+
 
       
     }
@@ -37,16 +41,29 @@ class Jugador
         
         
     }
-    void setTabEnemigo(string[] tabl)
+    void AddBarco(Barco bar)
     {
-        for (int i=0;i<11;i++)
+
+        string lugar;
+        int sigPos;
+        piezas[contadorBarcos]=bar;
+        //piezas[contadorBarcos].getXBar(0);  --> tiene un 3
+        
+        lugar= piezas[contadorBarcos].getOrient();
+        if(lugar=="vertical")
         {
-            for (int j=0;j<11;j++)
+            while(sigPos<piezas[contadorBarcos].getTamBar())
             {
-               enemigo[x][y] = tabl[x][y];
+                propio.tab[piezas[contadorBarcos].getYBar(sigPos)][piezas[contadorBarcos].getXBar(0)] = "T";
+                sigPos++;
             }
-        }    
+            
+            
+        }
+        contadorBarcos++;
+        
     }
+   
     
 };
 

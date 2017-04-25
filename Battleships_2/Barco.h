@@ -49,12 +49,46 @@ public:
         }
         
     }
+    string getOrient()
+    {
+        return orientacion;
+    }
+    int getTamBar()
+    {
+        return tamano;
+    }
+    int getXBar(int pox)
+    {
+        return coordenadaX[pox];
+    }
+    int getYBar(int poy)
+    {
+        return coordenadaY[poy];
+
+    }
     void setVertical(int x, int y)
     {
        if(orientacion=="vertical")
         {
             while( contadorX <5)
-            coordenadaX[contadorX] = 
+            {
+              coordenadaX[contadorX] = x;
+              contadorX++;
+            }
+            if(y + tamano >=11)
+            {
+                do
+                {
+                    y--;
+                }
+                while(y+tamano>=11);
+            }
+            while(contadorY<tamano)
+            {
+                coordenadaY[contadorY]=y;
+                y++;
+                contadorY++;
+            }
         }
        
         
