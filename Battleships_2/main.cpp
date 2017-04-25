@@ -8,7 +8,7 @@ int main()
     Jugador J1;
     Barco bar(4,"vertical");
     bar.setVertical(3,5);
-    J1.AddBarco(bar);
+    J1.AddBarco(bar); //agrega el 3,5
         J1.getPropio().printTab();
 
     

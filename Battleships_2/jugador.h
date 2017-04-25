@@ -54,7 +54,7 @@ class Jugador
         {
             while(sigPos<piezas[contadorBarcos].getTamBar())
             {
-                propio.tab[piezas[contadorBarcos].getYBar(sigPos)][piezas[contadorBarcos].getXBar(0)] = "T";
+                propio.tab[piezas[contadorBarcos].getYBar(sigPos)][piezas[contadorBarcos].getXBar(0)] = "T"; //Nota: son y, x las coordenadas
                 sigPos++;
             }
             

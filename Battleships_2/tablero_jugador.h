@@ -7,7 +7,7 @@ using namespace std;
 class TableroJugador //Recibe los parametros (y,x) del tablero
 {
   public:
-  string tab[11][11];
+  string tab[11][11]; //lo vilvimos public just in case
   TableroJugador()
   {
   	tab[0][0]= " ";
