@@ -32,9 +32,9 @@ class Jugador
     {
         return propio;
     }
-    void Bomba(int x, int y) //Coordenada donde echar la bomba
+    void Bomba(int y, int x) //Coordenada donde echar la bomba
     {
-        if(enemigo.tab[x][y] == "B")
+        if(enemigo.tab[x][y] == "T")
         {
             enemigo.tab[x][y] = "X";
         }
@@ -45,12 +45,22 @@ class Jugador
     {
 
         string lugar;
-        int sigPos;
+        int sigPos=0;
         piezas[contadorBarcos]=bar;
         //piezas[contadorBarcos].getXBar(0);  --> tiene un 3
         
         lugar= piezas[contadorBarcos].getOrient();
         if(lugar=="vertical")
+        {
+            while(sigPos<piezas[contadorBarcos].getTamBar())
+            {
+                propio.tab[piezas[contadorBarcos].getYBar(sigPos)][piezas[contadorBarcos].getXBar(0)] = "T"; //Nota: son y, x las coordenadas
+                sigPos++;
+            }
+            
+            
+        }
+         if(lugar=="horizontal")
         {
             while(sigPos<piezas[contadorBarcos].getTamBar())
             {

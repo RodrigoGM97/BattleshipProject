@@ -23,7 +23,7 @@ public:
        coordenadaX = new int[tamano];
        coordenadaY = new int[tamano];
        contadorX=0;
-        contadorY=0;
+       contadorY=0;
     }
     void setTamBar(int tam)
     {
@@ -65,6 +65,31 @@ public:
     {
         return coordenadaY[poy];
 
+    }
+    void setHorizontal(int x, int y)
+    {
+        if(orientacion=="horizontal")
+        {
+            while( contadorY <5)
+            {
+              coordenadaY[contadorY] = y;
+              contadorY++;
+            }
+            if(x + tamano >=11)
+            {
+                do
+                {
+                    x--;
+                }
+                while(x+tamano>=11);
+            }
+            while(contadorX<tamano)
+            {
+                coordenadaX[contadorX]=x;
+                x++;
+                contadorX++;
+            }
+        }
     }
     void setVertical(int x, int y)
     {

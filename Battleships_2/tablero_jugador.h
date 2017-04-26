@@ -13,8 +13,8 @@ class TableroJugador //Recibe los parametros (y,x) del tablero
   	tab[0][0]= " ";
   	
   	tab[0][1] = "A";
-	tab[0][2] = "B";
-	tab[0][3] = "C";
+	  tab[0][2] = "B";
+	  tab[0][3] = "C";
   	tab[0][4] = "D";
   	tab[0][5] = "E";
   	tab[0][6] = "F";
