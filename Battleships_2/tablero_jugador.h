@@ -7,7 +7,7 @@ using namespace std;
 class TableroJugador //Recibe los parametros (y,x) del tablero
 {
   public:
-  string tab[11][11]; //lo vilvimos public just in case
+  string tab[11][11]; //lo volvimos public just in case
   TableroJugador()
   {
   	tab[0][0]= " ";
@@ -48,7 +48,7 @@ class TableroJugador //Recibe los parametros (y,x) del tablero
   void printTab()
   {
   	for(int x=0; x<11; x++)
-  	{
+  	{  
   		for(int y=0; y<11; y++)
   		{
   			cout<<tab[x][y]<<"\t";

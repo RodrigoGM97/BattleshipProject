@@ -66,6 +66,11 @@ public:
         return coordenadaY[poy];
 
     }
+    void resetPos()
+    {
+        contadorX=0;
+        contadorY=0;
+    }
     void setHorizontal(int x, int y)
     {
         if(orientacion=="horizontal")

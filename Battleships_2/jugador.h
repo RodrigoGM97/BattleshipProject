@@ -7,6 +7,7 @@ class Jugador
     private:
     TableroJugador propio;
     TableroJugador enemigo;
+    TableroJugador guia_de_ataque;
     int barcos_restantes;
     int contadorBarcos;
     Barco *piezas;
@@ -32,14 +33,41 @@ class Jugador
     {
         return propio;
     }
-    void Bomba(int y, int x) //Coordenada donde echar la bomba
+    TableroJugador getEnemigo()
+    {
+        return enemigo;
+    }
+    TableroJugador getGuia()
+    {
+        return guia_de_ataque;
+    }
+
+    void setTableroEnemigo(Jugador J2)
+    {
+        this->enemigo = J2.getPropio();
+    }
+    void BajoAtaque(int y, int x)
+    {
+         if(propio.tab[x][y] == "T")
+        {
+            propio.tab[x][y] = "X";
+            
+        }
+    }
+    void AtaqueBasico(int y, int x) //Coordenada donde vas a atacar al otro
     {
         if(enemigo.tab[x][y] == "T")
         {
             enemigo.tab[x][y] = "X";
+            guia_de_ataque.tab[x][y]="X";
+        }
+        else if (enemigo.tab[x][y] == "0")
+        {
+            guia_de_ataque.tab[x][y]  = "F";
         }
         
         
+       
     }
     void AddBarco(Barco bar)
     {
@@ -64,7 +92,7 @@ class Jugador
         {
             while(sigPos<piezas[contadorBarcos].getTamBar())
             {
-                propio.tab[piezas[contadorBarcos].getYBar(sigPos)][piezas[contadorBarcos].getXBar(0)] = "T"; //Nota: son y, x las coordenadas
+                propio.tab[piezas[contadorBarcos].getYBar(0)][piezas[contadorBarcos].getXBar(sigPos)] = "T"; //Nota: son y, x las coordenadas
                 sigPos++;
             }
             
