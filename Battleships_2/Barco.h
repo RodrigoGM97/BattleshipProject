@@ -1,6 +1,6 @@
 #ifndef BARCO_H
 #define BARCO_H
-
+#include <vector>
 class Barco
 {
 private:
@@ -18,7 +18,7 @@ public:
     }
     Barco(int tamano, string orientacion)
     {
-    this->orientacion=orientacion;
+       this->orientacion=orientacion;
        this->tamano=tamano; 
        coordenadaX = new int[tamano];
        coordenadaY = new int[tamano];
@@ -27,30 +27,12 @@ public:
     }
     void setTamBar(int tam)
     {
-        coordenadaX = new int[tam];
-        coordenadaY = new int[tam];
         tamano=tam;
-    }
-    void setXBar(int x)
-    {
-        if(orientacion=="horizontal")
-        {
-            if(contadorX< tamano)
-            {
-            coordenadaX[contadorX] = x;
-            contadorX++;
-            }
-        }
-        else
-        {
-         while(contadorX<5)
-         {
-             coordenadaX[contadorX]=x;
-             contadorX++;
-         }
-        }
+        coordenadaX = new int[tamano];
+        coordenadaY = new int[tamano];
         
     }
+   
     void setOrient(string x)
     {
         orientacion = x;

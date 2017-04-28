@@ -23,10 +23,6 @@ class Jugador
         contadorBarcos=0;
     }
     
-
-
-      
-    
     void setNombre(string n)
     {
         nombre = n;
@@ -75,7 +71,7 @@ class Jugador
         
        
     }
-    /*void AirStrike(int y)
+    void AirStrike(int y)
     {
         for(int x=1; x<11;x++)
         {
@@ -90,8 +86,8 @@ class Jugador
             }
         }
         
-    }*/
-    /* void MultiStrike(int y, int x)
+    }
+     void MultiStrike(int y, int x)
     {
     
         if(enemigo.tab[x][y] == "T") //centro
@@ -128,10 +124,34 @@ class Jugador
             }
         }
         
+        if(x!=1)
+        {
+            if(enemigo.tab[x-1][y] == "T") //arriba
+            {
+             enemigo.tab[x-1][y] = "X";
+             guia_de_ataque.tab[x-1][y]="X";
+            }
+            else if (enemigo.tab[x-1][y] == "0")
+            {
+              guia_de_ataque.tab[x-1][y]  = "F";
+            }
+        }
+        
+        if(x!=11)
+        {
+            if(enemigo.tab[x+1][y] == "T") //arriba
+            {
+             enemigo.tab[x+1][y] = "X";
+             guia_de_ataque.tab[x+1][y]="X";
+            }
+            else if (enemigo.tab[x+1][y] == "0")
+            {
+              guia_de_ataque.tab[x+1][y]  = "F";
+            }
+        }
+        
         
     }
-    
-    */
     void AddBarco(Barco bar)
     {
 
@@ -161,6 +181,7 @@ class Jugador
             
         }
         contadorBarcos++;
+        cout<<"El siguiente barco a agregar es el "<<contadorBarcos<<endl;
         
     }
    
