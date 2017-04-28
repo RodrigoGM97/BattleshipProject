@@ -5,6 +5,7 @@
 class Jugador
 {
     private:
+    string nombre;
     TableroJugador propio;
     TableroJugador enemigo;
     TableroJugador guia_de_ataque;
@@ -29,6 +30,14 @@ class Jugador
 
       
     }
+    void setNombre(string n)
+    {
+        nombre = n;
+    }
+    string getNombre()
+    {
+        return nombre;
+    }
     TableroJugador getPropio()
     {
         return propio;
@@ -41,7 +50,7 @@ class Jugador
     {
         return guia_de_ataque;
     }
-
+    
     void setTableroEnemigo(Jugador J2)
     {
         this->enemigo = J2.getPropio();
