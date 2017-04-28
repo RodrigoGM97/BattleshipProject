@@ -2,6 +2,7 @@
 #define JUGADOR_H
 #include "tablero_jugador.h"
 #include "Barco.h"
+//#include "powerup.h"
 class Jugador
 {
     private:
@@ -11,7 +12,8 @@ class Jugador
     TableroJugador guia_de_ataque;
     int barcos_restantes;
     int contadorBarcos;
-    Barco *piezas;
+    //powerup poderes[3];
+    Barco piezas[5];
 
     public:
 
@@ -19,17 +21,12 @@ class Jugador
     {
         barcos_restantes = 5;
         contadorBarcos=0;
-        piezas = new Barco[5];
     }
-    Jugador(int barcos_restantes)
-    {
-        this->barcos_restantes=barcos_restantes;
-        piezas = new Barco[barcos_restantes];
-        contadorBarcos=0;
+    
 
 
       
-    }
+    
     void setNombre(string n)
     {
         nombre = n;
@@ -78,6 +75,63 @@ class Jugador
         
        
     }
+    /*void AirStrike(int y)
+    {
+        for(int x=1; x<11;x++)
+        {
+            if(enemigo.tab[x][y] == "T")
+            {
+                 enemigo.tab[x][y] = "X";
+                 guia_de_ataque.tab[x][y]="X";
+            }
+            else if (enemigo.tab[x][y] == "0")
+            {
+                guia_de_ataque.tab[x][y]  = "F";
+            }
+        }
+        
+    }*/
+    /* void MultiStrike(int y, int x)
+    {
+    
+        if(enemigo.tab[x][y] == "T") //centro
+        {
+             enemigo.tab[x][y] = "X";
+             guia_de_ataque.tab[x][y]="X";
+        }
+        else if (enemigo.tab[x][y] == "0")
+        {
+            guia_de_ataque.tab[x][y]  = "F";
+        }
+        if(y!=1)
+        {
+            if(enemigo.tab[x][y-1] == "T") //arriba
+            {
+             enemigo.tab[x][y-1] = "X";
+             guia_de_ataque.tab[x][y-1]="X";
+            }
+            else if (enemigo.tab[x][y-1] == "0")
+            {
+              guia_de_ataque.tab[x][y-1]  = "F";
+            }
+        }
+        if(y!=11)
+        {
+            if(enemigo.tab[x][y+1] == "T") //arriba
+            {
+             enemigo.tab[x][y+1] = "X";
+             guia_de_ataque.tab[x][y+1]="X";
+            }
+            else if (enemigo.tab[x][y+1] == "0")
+            {
+              guia_de_ataque.tab[x][y+1]  = "F";
+            }
+        }
+        
+        
+    }
+    
+    */
     void AddBarco(Barco bar)
     {
 
@@ -85,7 +139,6 @@ class Jugador
         int sigPos=0;
         piezas[contadorBarcos]=bar;
         //piezas[contadorBarcos].getXBar(0);  --> tiene un 3
-        
         lugar= piezas[contadorBarcos].getOrient();
         if(lugar=="vertical")
         {

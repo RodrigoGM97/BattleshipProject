@@ -27,6 +27,8 @@ public:
     }
     void setTamBar(int tam)
     {
+        coordenadaX = new int[tam];
+        coordenadaY = new int[tam];
         tamano=tam;
     }
     void setXBar(int x)
@@ -49,6 +51,11 @@ public:
         }
         
     }
+    void setOrient(string x)
+    {
+        orientacion = x;
+    }
+    
     string getOrient()
     {
         return orientacion;
