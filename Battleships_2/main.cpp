@@ -4,12 +4,12 @@
 #include "tablero_jugador.h"
 #include <vector>
 #include <cstdlib>
-void SetupBarcos(Jugador);
-void SetupUniversal();
+
+void SetupBarcos(Jugador &);
+void SetupUniversal(Jugador &J, Jugador &J2);
+void Turnos(bool t, Jugador &J, Jugador &J2);
 void Ataques();
-Jugador J;
-Jugador J2;
-Jugador jugadores[2];
+
 Barco bar;
 string ori;
 string Coords = "ABCDEFGHIJ";
@@ -19,8 +19,63 @@ bool turno = true;
 
 int main()
 {
+    bool end_game=false;
+    Jugador J;
+    Jugador J2;
     //pedir Nombres
-    SetupUniversal();
+    SetupUniversal(J, J2);
+    
+    while(end_game==false)
+    {
+        //Turnos(turno, J, J2);
+        if(turno==true)
+    {
+        cout<<J.getNombre()<<" está atacando..."<<endl;
+        cout<<"Ingresa coordenadas a ataque: ";
+        cin>>col;
+        cin>>coordReng;
+        for(coordColumn; Coords[coordColumn]!=col;coordColumn++);
+        coordColumn++;
+        
+        //J2.getPropio().printTab();
+        J.AtaqueBasico(coordColumn, coordReng);
+        cout<<"Guía de ataques: "<<endl;
+        J.getGuia().printTab();
+        cout<<"---------------------------------------------------------------"<<endl;
+        cout<<"Tu tablero: "<<endl;
+        J.getPropio().printTab();
+        cout<<endl<<"Presiona una tecla y enter para terminar tu turno"<<endl;
+        cin>>col;
+        
+        system("clear");
+        turno = false;
+       // J2.getPropio().printTab();
+    }
+    else
+    {
+        cout<<J2.getNombre()<<" está atacando..."<<endl;
+        cout<<"Ingresa coordenadas a ataque: ";
+        cin>>col;
+        cin>>coordReng;
+        for(coordColumn; Coords[coordColumn]!=col;coordColumn++);
+        coordColumn++;
+        
+        //J2.getPropio().printTab();
+        J2.AtaqueBasico(coordColumn, coordReng);
+        cout<<"Guía de ataques: "<<endl;
+        J2.getGuia().printTab();
+        cout<<"---------------------------------------------------------------"<<endl;
+        cout<<"Tu tablero: "<<endl;
+        J2.getPropio().printTab();
+        cout<<endl<<"Presiona una tecla y enter para terminar tu turno"<<endl;
+        cin>>col;
+        
+        system("clear");
+        turno=true;
+       // J2.getPropio().printTab();
+    }
+    }
+    
     /*Barco barq(4,"vertical");
     Barco barq2(3,"vertical");
     barq.setVertical(2,3);
@@ -30,23 +85,17 @@ int main()
     J.setTableroEnemigo(J2);
     J2.setTableroEnemigo(J);
     J.getEnemigo().printTab();*/
-    if (turno==true)
-        {
-            cout << J.getNombre() << "Es tu turno de atacar: " << endl;
-            cout << "Dame la coordenada que quieres atacar: " << endl;
-            cin >> col;
-            cin >> coordReng;
-            for(coordColumn; Coords[coordColumn]!=col;coordColumn++);
-            coordColumn++;
-            J.AtaqueBasico(coordColumn,coordReng);
-            J.getEnemigo().printTab();
-            
-        }
+    
+    
     
     return 0;
     
 }
-void SetupUniversal()
+void Turnos(bool turno, Jugador &J, Jugador &J2)
+{
+    
+}
+void SetupUniversal(Jugador &J, Jugador &J2)
 {
     string nom;
     string inicia_turno;
@@ -79,18 +128,20 @@ void SetupUniversal()
 
             
         SetupBarcos(J2);
+        
         cout << endl<< J2.getNombre() << " presiona X para terminar tu turno" << endl;
         cin>>inicia_turno;
         J.setTableroEnemigo(J2);
         J2.setTableroEnemigo(J);
+
         
     }
 }
-void SetupBarcos(Jugador J1)
+void SetupBarcos(Jugador & J)
 {
-    cout << J1.getNombre()<< " está colocando sus barcos:  "  << endl;
+    cout << J.getNombre()<< " está colocando sus barcos:  "  << endl;
         //Barco 1(5 casillas)
-        J1.getPropio().printTab();
+        J.getPropio().printTab();
         int conta=5;
         while(conta>0)
         {
@@ -120,10 +171,10 @@ void SetupBarcos(Jugador J1)
             {
                 bar.setVertical(coordColumn,coordReng);
             }
-            J1.AddBarco(bar);
+            J.AddBarco(bar);
             bar.resetPos();
             cout<<endl;
-            J1.getPropio().printTab();
+            J.getPropio().printTab();
             conta--;
             //Barco 2(4 casillas)
         }

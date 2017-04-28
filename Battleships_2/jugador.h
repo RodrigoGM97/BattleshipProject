@@ -16,7 +16,6 @@ class Jugador
     Barco piezas[5];
 
     public:
-
     Jugador() 
     {
         barcos_restantes = 5;
