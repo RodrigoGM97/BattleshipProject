@@ -14,11 +14,34 @@ Barco bar;
 string ori;
 string Coords = "ABCDEFGHIJ";
 int coordColumn=0, coordReng=0;
+char col;
+bool turno = true;
 
 int main()
 {
     //pedir Nombres
     SetupUniversal();
+    /*Barco barq(4,"vertical");
+    Barco barq2(3,"vertical");
+    barq.setVertical(2,3);
+    barq2.setVertical(4,5);
+    J.AddBarco(barq);
+    J2.AddBarco(barq2);
+    J.setTableroEnemigo(J2);
+    J2.setTableroEnemigo(J);
+    J.getEnemigo().printTab();*/
+    if (turno==true)
+        {
+            cout << J.getNombre() << "Es tu turno de atacar: " << endl;
+            cout << "Dame la coordenada que quieres atacar: " << endl;
+            cin >> col;
+            cin >> coordReng;
+            for(coordColumn; Coords[coordColumn]!=col;coordColumn++);
+            coordColumn++;
+            J.AtaqueBasico(coordColumn,coordReng);
+            J.getEnemigo().printTab();
+            
+        }
     
     return 0;
     
@@ -28,7 +51,6 @@ void SetupUniversal()
     string nom;
     string inicia_turno;
     
-    bool turno = false;
     cout<<"Jugador 1: "<<endl<< "Ingrese su apodo: ";
     cin>>nom;
     J.setNombre(nom);
@@ -62,14 +84,6 @@ void SetupUniversal()
         J.setTableroEnemigo(J2);
         J2.setTableroEnemigo(J);
         
-        if (turno==true)
-        {
-            cout << J.getNombre() << "Es tu turno de atacar: " << endl;
-            cout << "Dame la columna y el renglón que quieres atacar: " << endl;
-            
-        }
-
-        
     }
 }
 void SetupBarcos(Jugador J1)
@@ -93,10 +107,8 @@ void SetupBarcos(Jugador J1)
             else
                 bar.setTamBar(conta+1);
             bar.setOrient(ori);
-            cout<<"Ingresa la columna en la quieras tener el inicio de tu barco: " << endl;
-            char col;
+            cout<<"Ingresa la coordenada en la quieras tener el inicio de tu barco: " << endl;
             cin >> col;
-            cout << "Ahora ingresa el renglón: " << endl;
             cin >> coordReng;
             for(coordColumn; Coords[coordColumn]!=col;coordColumn++);
             coordColumn++;
