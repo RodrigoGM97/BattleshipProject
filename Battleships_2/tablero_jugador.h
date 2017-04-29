@@ -56,6 +56,7 @@ class TableroJugador //Recibe los parametros (y,x) del tablero
   		cout<<endl;
   	}
   }
+
 };
 
 #endif

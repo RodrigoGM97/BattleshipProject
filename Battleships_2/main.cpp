@@ -2,6 +2,9 @@
 #include <string>
 #include "jugador.h"
 #include "tablero_jugador.h"
+#include "Ataques.h"
+#include "AirStrike.h"
+#include "Multistrike.h"
 #include <vector>
 #include <cstdlib>
 
@@ -9,6 +12,7 @@ void SetupBarcos(Jugador &);
 void SetupUniversal(Jugador &J, Jugador &J2);
 void Turnos(bool t, Jugador &J, Jugador &J2);
 void Ataques();
+void check_end(Jugador &J, Jugador &J1);
 
 Barco bar;
 string ori;
@@ -16,10 +20,11 @@ string Coords = "ABCDEFGHIJ";
 int coordColumn=0, coordReng=0;
 char col;
 bool turno = true;
+bool end_game=false;
 
 int main()
 {
-    bool end_game=false;
+
     Jugador J;
     Jugador J2;
     //pedir Nombres
@@ -29,51 +34,52 @@ int main()
     {
         //Turnos(turno, J, J2);
         if(turno==true)
-    {
-        cout<<J.getNombre()<<" está atacando..."<<endl;
-        cout<<"Ingresa coordenadas a ataque: ";
-        cin>>col;
-        cin>>coordReng;
-        for(coordColumn; Coords[coordColumn]!=col;coordColumn++);
-        coordColumn++;
-        
-        //J2.getPropio().printTab();
-        J.AtaqueBasico(coordColumn, coordReng);
-        cout<<"Guía de ataques: "<<endl;
-        J.getGuia().printTab();
-        cout<<"---------------------------------------------------------------"<<endl;
-        cout<<"Tu tablero: "<<endl;
-        J.getPropio().printTab();
-        cout<<endl<<"Presiona una tecla y enter para terminar tu turno"<<endl;
-        cin>>col;
-        
-        system("clear");
-        turno = false;
-       // J2.getPropio().printTab();
-    }
-    else
-    {
-        cout<<J2.getNombre()<<" está atacando..."<<endl;
-        cout<<"Ingresa coordenadas a ataque: ";
-        cin>>col;
-        cin>>coordReng;
-        for(coordColumn; Coords[coordColumn]!=col;coordColumn++);
-        coordColumn++;
-        
-        //J2.getPropio().printTab();
-        J2.AtaqueBasico(coordColumn, coordReng);
-        cout<<"Guía de ataques: "<<endl;
-        J2.getGuia().printTab();
-        cout<<"---------------------------------------------------------------"<<endl;
-        cout<<"Tu tablero: "<<endl;
-        J2.getPropio().printTab();
-        cout<<endl<<"Presiona una tecla y enter para terminar tu turno"<<endl;
-        cin>>col;
-        
-        system("clear");
-        turno=true;
-       // J2.getPropio().printTab();
-    }
+        {
+            cout<<J.getNombre()<<" está atacando..."<<endl;
+            cout<<"Ingresa coordenadas a ataque: ";
+            cin>>col;
+            cin>>coordReng;
+            for(coordColumn; Coords[coordColumn]!=col;coordColumn++);
+            coordColumn++;
+            
+            //J2.getPropio().printTab();
+            J.AtaqueBasico(coordColumn, coordReng);
+            cout<<"Guía de ataques: "<<endl;
+            J.getGuia().printTab();
+            cout<<"---------------------------------------------------------------"<<endl;
+            cout<<"Tu tablero: "<<endl;
+            J.getPropio().printTab();
+            cout<<endl<<"Presiona una tecla y enter para terminar tu turno"<<endl;
+            cin>>col;
+            
+            system("clear");
+            turno = false;
+           // J2.getPropio().printTab();
+        }
+        else
+        {
+            cout<<J2.getNombre()<<" está atacando..."<<endl;
+            cout<<"Ingresa coordenadas a ataque: ";
+            cin>>col;
+            cin>>coordReng;
+            for(coordColumn; Coords[coordColumn]!=col;coordColumn++);
+            coordColumn++;
+            
+            //J2.getPropio().printTab();
+            J2.AtaqueBasico(coordColumn, coordReng);
+            cout<<"Guía de ataques: "<<endl;
+            J2.getGuia().printTab();
+            cout<<"---------------------------------------------------------------"<<endl;
+            cout<<"Tu tablero: "<<endl;
+            J2.getPropio().printTab();
+            cout<<endl<<"Presiona una tecla y enter para terminar tu turno"<<endl;
+            cin>>col;
+            
+            system("clear");
+            turno=true;
+           // J2.getPropio().printTab();
+            check_end(J, J2);
+        }
     }
     
     /*Barco barq(4,"vertical");
@@ -178,4 +184,20 @@ void SetupBarcos(Jugador & J)
             conta--;
             //Barco 2(4 casillas)
         }
+}
+
+void check_end(Jugador &J, Jugador &J1)
+{
+    for(int x=0; x<11; x++)
+    {  
+      for(int y=0; y<11; y++)
+      {
+        if (J.getPropio().tab[x][y] == "T" || J1.getPropio().tab[x][y] == "T")
+        {
+          end_game = false;
+        }
+        else
+        end_game = true;
+      }
+    }
 }

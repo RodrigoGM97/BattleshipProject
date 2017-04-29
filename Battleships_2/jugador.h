@@ -57,7 +57,9 @@ class Jugador
     }
     void AtaqueBasico(int y, int x) //Coordenada donde vas a atacar al otro
     {
-        if(enemigo.tab[x][y] == "T")
+        
+        
+        /*(enemigo.tab[x][y] == "T")
         {
             enemigo.tab[x][y] = "X";
             guia_de_ataque.tab[x][y]="X";
@@ -66,7 +68,7 @@ class Jugador
         {
             guia_de_ataque.tab[x][y]  = "F";
         }
-        
+        */
         
        
     }
