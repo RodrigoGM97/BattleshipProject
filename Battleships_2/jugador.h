@@ -85,6 +85,7 @@ class Jugador
     }
     bool check_end()
     {
+        propio.tab[0][0] = "0";
         for(int x=0; x<11; x++)
         {
             for(int y=0; y<11; y++)
