@@ -2,6 +2,8 @@
 #define JUGADOR_H
 #include "tablero_jugador.h"
 #include "Barco.h"
+//#include "Ataques.h"
+//#include "AirStrike.h"
 //#include "powerup.h"
 class Jugador
 {
@@ -16,12 +18,21 @@ class Jugador
     Barco piezas[5];
 
     public:
+       // Ataque *Attack;
+
     Jugador() 
     {
         barcos_restantes = 5;
         contadorBarcos=0;
     }
-    
+    /*void setAttack(AirStrike air)
+    {
+        Attack = &air;
+    }
+    Ataque getAttack()
+    {
+        return Attack;
+    }*/
     void setNombre(string n)
     {
         nombre = n;
@@ -43,7 +54,7 @@ class Jugador
         return guia_de_ataque;
     }
     
-    void setTableroEnemigo(Jugador J2)
+    void setTableroEnemigo(Jugador &J2)
     {
         this->enemigo = J2.getPropio();
     }
@@ -55,29 +66,45 @@ class Jugador
             
         }
     }
-    void AtaqueBasico(int y, int x) //Coordenada donde vas a atacar al otro
+    void AtaqueBasico(int y, int x, Jugador &Jx) //Coordenada donde vas a atacar al otro
     {
         
+        if (this->enemigo.tab[x][y] == "T")
+        {
+            Jx.propio.tab[x][y] = "X";
+            this->enemigo.tab[x][y]="X";
+            this->guia_de_ataque.tab[x][y]="X";
+        }
+        else if (this->enemigo.tab[x][y] == "0")
+        {
+            this->guia_de_ataque.tab[x][y]  = "F";
+        }
         
-        /*(enemigo.tab[x][y] == "T")
-        {
-            enemigo.tab[x][y] = "X";
-            guia_de_ataque.tab[x][y]="X";
-        }
-        else if (enemigo.tab[x][y] == "0")
-        {
-            guia_de_ataque.tab[x][y]  = "F";
-        }
-        */
         
        
     }
-    void AirStrike(int y)
+    bool check_end()
+    {
+        for(int x=0; x<11; x++)
+        {
+            for(int y=0; y<11; y++)
+            {
+                if(propio.tab[x][y]=="T")
+                {
+                    return false;
+                }
+                
+            }
+        }
+        return true;
+    }
+    void AirStrike(int y, Jugador &Jx)
     {
         for(int x=1; x<11;x++)
         {
             if(enemigo.tab[x][y] == "T")
             {
+                Jx.propio.tab[x][y]="X";
                  enemigo.tab[x][y] = "X";
                  guia_de_ataque.tab[x][y]="X";
             }
@@ -183,10 +210,9 @@ class Jugador
         }
         contadorBarcos++;
         cout<<"El siguiente barco a agregar es el "<<contadorBarcos<<endl;
-        
+    
     }
    
-    
 };
 
 #endif

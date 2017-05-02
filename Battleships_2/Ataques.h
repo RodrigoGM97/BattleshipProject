@@ -1,6 +1,6 @@
 #ifndef ATAQUES_H
 #define ATAQUES_H
-
+#include "jugador.h"
 
 class Ataque
 {
@@ -31,7 +31,7 @@ public:
     {
         return y;
     }
-    void AttackPosition(Jugador &J)
+    void AttackPosition(int x, int y, Jugador &J)
     {
         if(J.getEnemigo().tab[x][y] == "T")
         {
