@@ -2,8 +2,9 @@
 #define JUGADOR_H
 #include "tablero_jugador.h"
 #include "Barco.h"
-//#include "Ataques.h"
-//#include "AirStrike.h"
+class AirStrike;
+class Ataque;// Problemas de forward declaration muy raros
+
 //#include "powerup.h"
 class Jugador
 {
@@ -18,16 +19,16 @@ class Jugador
     Barco piezas[5];
 
     public:
-       // Ataque *Attack;
+        Ataque *Attack; //intento de cambiar a polimorfismo pero fracasó
 
     Jugador() 
     {
         barcos_restantes = 5;
         contadorBarcos=0;
     }
-    /*void setAttack(AirStrike air)
+    /*void setAttack(AirStrike b)
     {
-        Attack = &air;
+        Attack = &b;
     }
     Ataque getAttack()
     {
@@ -116,13 +117,14 @@ class Jugador
         }
         
     }
-     void MultiStrike(int y, int x)
+     void MultiStrike(int y, int x, Jugador &Jx)
     {
     
         if(enemigo.tab[x][y] == "T") //centro
         {
              enemigo.tab[x][y] = "X";
              guia_de_ataque.tab[x][y]="X";
+             Jx.propio.tab[x][y]="X";
         }
         else if (enemigo.tab[x][y] == "0")
         {

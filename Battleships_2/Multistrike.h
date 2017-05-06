@@ -1,6 +1,7 @@
 #ifndef MULTISTRIKE_H
 #define MULTISTRIKE_H
 #include "Ataques.h"
+//clase para el intento de polimorfismo pero fracasó. Problemas de forward declaration muy raros
 
 class MultiStrike : virtual public Ataque
 {

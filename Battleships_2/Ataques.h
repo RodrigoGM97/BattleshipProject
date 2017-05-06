@@ -1,7 +1,7 @@
 #ifndef ATAQUES_H
 #define ATAQUES_H
 #include "jugador.h"
-
+//clase para el intento de polimorfismo pero fracasó. Problemas de forward declaration muy raros
 class Ataque
 {
 private:
@@ -31,12 +31,14 @@ public:
     {
         return y;
     }
-    void AttackPosition(int x, int y, Jugador &J)
+    virtual void AttackPosition(int x, int y, Jugador &J, Jugador &J2)
     {
+        cout<<"byeeee"<<endl;
         if(J.getEnemigo().tab[x][y] == "T")
         {
             J.getEnemigo().tab[x][y] = "X";
             J.getGuia().tab[x][y]="X";
+            J2.getPropio().tab[x][y]="X";
         }
         else if (J.getEnemigo().tab[x][y] == "0")
         {

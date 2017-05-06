@@ -1,21 +1,25 @@
 #ifndef AIRSTRIKE_H
 #define AIRSTRIKE_H
 #include "Ataques.h"
-class AirStrike: virtual public Ataque
+//clase para el intento de polimorfismo pero fracasó. Problemas de forward declaration muy raros
+
+class AirStrike:public Ataque
 {
     public:
-    void AttackPosition(Jugador &J)
+    void AttackPosition(int x, int y, Jugador &J, Jugador &J2)
     {
+        cout<<"hola!!!"<<endl;
         for(int x1=0;x1<11;x1++)
         {
-            if(J.getEnemigo().tab[x1][getY_Ataque()] == "T")
+            if(J.getEnemigo().tab[x1][y] == "T")
              {
-                 J.getEnemigo().tab[x1][getY_Ataque()] = "X";
-                 J.getGuia().tab[x1][getY_Ataque()]="X";
+                 J.getEnemigo().tab[x1][y] = "X";
+                 J.getGuia().tab[x1][y]="X";
+                 J2.getPropio().tab[x1][y]="X";
             }
-            else if (J.getEnemigo().tab[x1][getY_Ataque()] == "0")
+            else if (J.getEnemigo().tab[x1][y] == "0")
             {
-                J.getGuia().tab[x1][getY_Ataque()]  = "F";
+                J.getGuia().tab[x1][y]  = "F";
             } 
         }
        

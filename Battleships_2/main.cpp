@@ -10,7 +10,6 @@
 
 void SetupBarcos(Jugador &);
 void SetupUniversal(Jugador &J, Jugador &J2);
-void Turnos(bool t, Jugador &J, Jugador &J2);
 void check_end(Jugador &J, Jugador &J1);
 
 Barco bar;
@@ -18,6 +17,8 @@ string ori;
 string Coords= "ABCDEFGHIJ";
 int coordColumn=0, coordReng=0;
 char col;
+int AirRestJ=1, AirRestJ2=1;
+int MultrestJ=1, MultrestJ2=1;
 bool turno= true;
 bool end_game =false;
 Jugador J;
@@ -61,10 +62,18 @@ void debugSetup() {
 int main()
 {
     //pedir Nombres
-    // SetupUniversal(J, J2);
-    debugSetup();
+    SetupUniversal(J, J2);
+    //debugSetup();
     AirStrike airstrike;
-    
+    Ataque B;
+    Ataque *A;
+    char tipoAtaque;
+    /*B.setCoords(5,6);
+    A=&B;
+    A-> AttackPosition(4,5, J);
+    A=&airstrike;
+    A->AttackPosition(3,4,J);
+    airstrike.AttackPosition(4,5,J);*/
     while(end_game==false)
     {
         coordColumn=0;
@@ -72,16 +81,56 @@ int main()
         if(turno==true)
         {
             cout<<J.getNombre()<<" está atacando..."<<endl;
-            cout<<"Ingresa coordenadas a ataque: ";
+            cout<<"Ingresa tipo de ataque. Tienes: "<<endl<<"B) Ataque básico"<<endl<<"A) Airstrike (" << AirRestJ <<  " restantes)"<<endl<<"M) MultiStrike ("<<MultrestJ<<" restantes)"<<endl;
+            cin>>tipoAtaque;
+            cout<<"Ingresa las coordenadas para atacar: ";
             cin>>col;
             cin>>coordReng;
             for(coordColumn; Coords[coordColumn]!=col;coordColumn++);
             coordColumn++;
+            switch(tipoAtaque)
+            {
+                case 'B':
+                J.AtaqueBasico(coordColumn, coordReng, J2);
+                break;
+                case 'A':
+                if(AirRestJ>0)
+                {
+                    J.AirStrike(coordColumn, J2);
+                    AirRestJ--;
+                }
+                else
+                {
+                    cout<<"No te quedan Air Strikes. Realizando ataque básico..."<<endl;
+                    J.AtaqueBasico(coordColumn, coordReng, J2);                    
+                }
+                break;
+                case 'M':
+                if(MultrestJ>0)
+                {
+                    J.MultiStrike(coordColumn, coordReng, J2);
+                    MultrestJ--;
+                }
+                else
+                {
+                    cout<<"No te quedan MultiStrikes. Realizando ataque básico..."<<endl;
+                    J.AtaqueBasico(coordColumn, coordReng, J2);
+                }
+                break;
+                
+            }
+            
             //J2.getPropio().printTab();
-             J.AirStrike(coordColumn, J2);
-           /* J.Attack = &airstrike;
-            J.Attack->setCoords(coordColumn, coordReng);
-            J.getAttack()->AttackPosition(J.getAttack->getX_Ataque(), J.getAttack->getY_Ataque(),J);*/
+            
+            //J.Attack=&airstrike;
+            //J.Attack->AttackPosition(coordColumn, coordReng, J, J2);
+            
+            //J.setAttack(airstrike);
+            //J.getAttack().AttackPosition(J);
+           
+           // J.Attack = &airstrike;
+            //J.Attack->setCoords(coordColumn, coordReng);
+            //J.getAttack()->AttackPosition(J.getAttack->getX_Ataque(), J.getAttack->getY_Ataque(),J);
             cout<<"Guía de ataques: "<<endl;
             J.getGuia().printTab();
             cout<<"---------------------------------------------------------------"<<endl;
@@ -89,6 +138,7 @@ int main()
             J.getPropio().printTab();
             cout<<endl<<"Presiona una tecla y enter para terminar tu turno"<<endl;
             cin>>col;
+            cout << "-------------------------------------------------------------"<< endl;
             
             system("clear");
             turno= false;
@@ -98,14 +148,46 @@ int main()
         else
         {
             cout<<J2.getNombre()<<" está atacando..."<<endl;
-            cout<<"Ingresa coordenadas a ataque: ";
+            cout<<"Ingresa tipo de ataque. Tienes: "<<endl<<"B) Ataque básico"<<endl<<"A) Airstrike (" << AirRestJ2 <<  " restantes)"<<endl<<"M) MultiStrike ("<<MultrestJ<<" restantes)"<<endl;
+            cin>>tipoAtaque;
+            cout<<"Ingresa las coordenadas para atacar: ";
             cin>>col;
             cin>>coordReng;
             for(coordColumn; Coords[coordColumn]!=col;coordColumn++);
             coordColumn++;
+            switch(tipoAtaque)
+            {
+                case 'B':
+                J2.AtaqueBasico(coordColumn, coordReng, J);
+                break;
+                case 'A':
+                if(AirRestJ2>0)
+                {
+                    J2.AirStrike(coordColumn, J);
+                    AirRestJ2--;
+                }
+                else
+                {
+                    cout<<"No te quedan Air Strikes. Realizando ataque básico..."<<endl;
+                    J2.AtaqueBasico(coordColumn, coordReng, J);                    
+                }
+                break;
+                case 'M':
+                if(MultrestJ2>0)
+                {
+                    J2.MultiStrike(coordColumn, coordReng, J);
+                    MultrestJ2--;
+                }
+                else
+                {
+                    cout<<"No te quedan MultiStrikes. Realizando ataque básico..."<<endl;
+                    J2.AtaqueBasico(coordColumn, coordReng, J);
+                }
+                break;
+                
+            }
             
             //J2.getPropio().printTab();
-            J2.AtaqueBasico(coordColumn, coordReng, J);
             cout<<"Guía de ataques: "<<endl;
             J2.getGuia().printTab();
             cout<<"---------------------------------------------------------------"<<endl;
@@ -113,6 +195,7 @@ int main()
             J2.getPropio().printTab();
             cout<<endl<<"Presiona una tecla y enter para terminar tu turno"<<endl;
             cin>>col;
+            cout << "-------------------------------------------------------------"<< endl;
             
             system("clear");
             turno=true;
@@ -120,26 +203,11 @@ int main()
             end_game=J.check_end();
         }
     }
-    
-    /*Barco barq(4,"vertical");
-    Barco barq2(3,"vertical");
-    barq.setVertical(2,3);
-    barq2.setVertical(4,5);
-    J.AddBarco(barq);
-    J2.AddBarco(barq2);
-    J.setTableroEnemigo(J2);
-    J2.setTableroEnemigo(J);
-    J.getEnemigo().printTab();*/
-    
-    
-    
+
     return 0;
     
 }
-void Turnos(bool turno, Jugador &J, Jugador &J2)
-{
-    
-}
+
 void SetupUniversal(Jugador &J, Jugador &J2)
 {
     string nom;
@@ -161,7 +229,7 @@ void SetupUniversal(Jugador &J, Jugador &J2)
     cout << J.getNombre() << " presiona Y para comenzar tu turno" << endl;
     
     cin >> inicia_turno;
-    if (inicia_turno=="Y")
+    if (inicia_turno!="")
     {
         SetupBarcos(J);
         cout << endl<< J.getNombre() << " Ingresa cualquier tecla y Enter terminar tu turno" << endl;
@@ -173,12 +241,10 @@ void SetupUniversal(Jugador &J, Jugador &J2)
         
         SetupBarcos(J2);
         
-        cout << endl<< J2.getNombre() << " presiona X para terminar tu turno" << endl;
+        cout << endl<< J2.getNombre() << " Ingresa cualquier tecla y Enter terminar tu turno" << endl;
         cin>>inicia_turno;
         J.setTableroEnemigo(J2);
         J2.setTableroEnemigo(J);
-        
-        
     }
 }
 void SetupBarcos(Jugador & J)
